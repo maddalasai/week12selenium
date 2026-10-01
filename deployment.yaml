@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+  name: mypythonflaskapp-deployment
+
+spec:
+  replicas: 4
+
+  selector:
+    matchLabels:
+      app: mypythonflaskapp
+
+  template:
+    metadata:
+      labels:
+        app: mypythonflaskapp
+
+    spec:
+      containers:
+        - name: mypythonflaskapp
+
+          image: 141034durga/mypythonflaskapp:v1
+
+          ports:
+            - containerPort: 5000
