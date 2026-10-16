@@ -1,14 +1,14 @@
 
 import pytest
+import time
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.alert import Alert
 from webdriver_manager.chrome import ChromeDriverManager
-import time
 
 
-# Fixture for setting up and tearing down the driver
+# Setup and teardown
 @pytest.fixture
 def setup_teardown():
     driver = webdriver.Chrome(
@@ -20,7 +20,7 @@ def setup_teardown():
     driver.quit()
 
 
-# Helper to get alert text safely
+# Helper to get alert text
 def get_alert_text(driver):
     alert = Alert(driver)
     text = alert.text
@@ -72,7 +72,7 @@ def test_short_password(setup_teardown):
     )
 
 
-# Test 4: Valid input
+# Test 4: Valid input - intentional failure demonstration
 def test_valid_input(setup_teardown):
     driver = setup_teardown
     driver.get("http://127.0.0.1:5000/")
@@ -83,14 +83,14 @@ def test_valid_input(setup_teardown):
 
     time.sleep(2)
 
-    # Verify URL
     current_url = driver.current_url
     assert "/submit" in current_url, (
         f"Expected redirect to submit, but got: {current_url}"
     )
 
-    # Verify greeting message
     body_text = driver.find_element(By.TAG_NAME, "body").text
-    assert "Hello, Sai Durga! Welcome to the website" in body_text, (
+
+    # Intentionally incorrect expected name to demonstrate a failure
+    assert "Hello, WrongName! Welcome to the website" in body_text, (
         f"Greeting not found or incorrect: {body_text}"
     )
