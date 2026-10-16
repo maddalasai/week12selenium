@@ -1,28 +1,21 @@
 
 apiVersion: apps/v1
-
 kind: Deployment
-
 metadata:
-  name: mypythonflaskapp-deployment
-
+  name: week12selenium-deployment
 spec:
   replicas: 1
-
   selector:
     matchLabels:
-      app: mypythonflaskapp
-
+      app: week12selenium
   template:
     metadata:
       labels:
-        app: mypythonflaskapp
-
+        app: week12selenium
     spec:
       containers:
-        - name: mypythonflaskapp
-
-          image: 141034durga/mypythonflaskapp:v1
-
+        - name: week12selenium
+          image: week12selenium:v1
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5000
